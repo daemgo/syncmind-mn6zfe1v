@@ -1,5 +1,5 @@
 {
-  "currentVersion": "v0.1",
+  "currentVersion": "v0.2",
   "status": "draft",
 
   "versions": [],
@@ -7,7 +7,7 @@
   "current": {
     "salesInput": {
       "salesPerson": "",
-      "lastUpdated": "2026-03-25",
+      "lastUpdated": "2026-03-26",
       "overallAssessment": {
         "customerIntent": "数字化转型深化期，明确表达EAM系统建设需求",
         "projectUrgency": "正常：26年年底上线，时间充裕",
@@ -19,7 +19,7 @@
       },
       "keyPersons": [],
       "realNeeds": {
-        "explicitNeeds": ["EAM企业资产管理系统"],
+        "explicitNeeds": ["EAM企业资产管理系统", "设备运行状态监控大屏"],
         "implicitNeeds": ["设备维护经验知识化", "预测性维护能力提升"],
         "suspectedNeeds": ["与现有西门子系统集成", "移动端巡检"],
         "needsNotMentioned": []
@@ -39,7 +39,8 @@
       "documents": [],
       "communications": [
         "2026-03-25: 销售反馈客户有EAM系统需求",
-        "2026-03-25: 客户反馈预算100万（已审批），要求26年年底上线，在对比SaaS产品与定制开发"
+        "2026-03-25: 客户反馈预算100万（已审批），要求26年年底上线，在对比SaaS产品与定制开发",
+        "2026-03-26: 客户提出设备运行状态监控大屏需求，需要实时展示设备运行状态、OEE指标、故障预警等信息"
       ],
       "observations": []
     },
@@ -49,19 +50,21 @@
       "currentChallenges": [
         "关键设备维护依赖工人经验，缺乏标准化知识沉淀",
         "预测性维护能力不足，设备故障难以提前预警",
-        "设备台账分散，缺乏统一的资产管理视角"
+        "设备台账分散，缺乏统一的资产管理视角",
+        "设备运行状态缺乏可视化监控，管理层难以实时掌握车间设备状况"
       ],
       "triggerEvent": "数字化深化与智能制造升级期，DCMM认证后数据管理意识觉醒",
       "currentSystems": ["西门子数控系统"],
       "currentProcess": {
         "overview": "现有设备维护流程依赖人工经验，巡检、维修记录纸质化或分散存储",
         "steps": ["设备故障报修", "维修人员响应", "故障处理", "记录填写"],
-        "bottlenecks": ["维修经验难以传承", "备件库存不透明", "预防性维护计划执行困难"]
+        "bottlenecks": ["维修经验难以传承", "备件库存不透明", "预防性维护计划执行困难", "设备状态无法实时监控"]
       },
       "painPoints": [
-        { "area": "设备管理", "description": "恒温装配、整机联机等关键设备维护依赖经验，预测性维护能力不足", "severity": "中", "source": "profile推断" }
+        { "area": "设备管理", "description": "恒温装配、整机联机等关键设备维护依赖经验，预测性维护能力不足", "severity": "中", "source": "profile推断" },
+        { "area": "可视化监控", "description": "缺乏设备运行状态可视化手段，管理层无法实时掌握车间设备运行情况", "severity": "中", "source": "customer-stated" }
       ],
-      "expectedOutcomes": ["建立完整设备台账", "标准化维护流程", "提升设备可用率", "降低意外停机"]
+      "expectedOutcomes": ["建立完整设备台账", "标准化维护流程", "提升设备可用率", "降低意外停机", "实现设备状态可视化监控"]
     },
 
     "needs": [
@@ -118,7 +121,8 @@
         "source": "profile-inference",
         "confidence": "low",
         "status": "active",
-        "acceptanceCriteria": ["支持设备运行数据采集", "支持阈值预警", "支持趋势分析"]
+        "acceptanceCriteria": ["支持设备运行数据采集", "支持阈值预警", "支持趋势分析"],
+        "relatedTo": ["N009"]
       },
       {
         "id": "N006",
@@ -152,14 +156,27 @@
         "confidence": "medium",
         "status": "active",
         "acceptanceCriteria": ["支持自定义报表", "支持数据可视化", "支持导出"]
+      },
+      {
+        "id": "N009",
+        "category": "设备监控与可视化",
+        "title": "设备运行状态监控大屏",
+        "description": "通过可视化大屏实时展示车间设备运行状态，提供集中监控和快速决策支持。包括实时设备运行状态展示（运行/停机/故障）、设备OEE指标可视化、故障预警与告警信息集中展示、按车间/产线/设备分层的视图切换、关键生产指标实时展示",
+        "priority": "should-have",
+        "source": "customer-stated",
+        "confidence": "medium",
+        "status": "active",
+        "acceptanceCriteria": ["支持实时设备状态展示", "支持OEE指标可视化", "支持多层级视图切换（车间/产线/设备）", "支持故障预警信息集中展示", "支持关键生产指标实时展示"],
+        "relatedTo": ["N005"],
+        "notes": "作为N005的前端展示层，将后端采集的数据通过大屏形式可视化呈现"
       }
     ],
 
     "users": [
       {
         "role": "设备管理员",
-        "responsibilities": ["设备台账维护", "维护计划制定", "报表分析"],
-        "painPoints": ["数据分散难以统计", "手工工作量大"],
+        "responsibilities": ["设备台账维护", "维护计划制定", "报表分析", "监控大屏管理"],
+        "painPoints": ["数据分散难以统计", "手工工作量大", "无法实时掌握设备状态"],
         "frequency": "每日"
       },
       {
@@ -179,6 +196,12 @@
         "responsibilities": ["备件采购", "库存管理"],
         "painPoints": ["备件需求不明确", "库存积压与缺货并存"],
         "frequency": "每周"
+      },
+      {
+        "role": "生产管理层",
+        "responsibilities": ["生产调度", "设备状态监控", "决策支持"],
+        "painPoints": ["无法实时掌握车间设备状况", "故障响应滞后"],
+        "frequency": "实时"
       }
     ],
 
@@ -188,7 +211,8 @@
         "维护计划管理",
         "维修工单管理",
         "备品备件管理",
-        "设备报表分析"
+        "设备报表分析",
+        "设备运行状态监控大屏"
       ],
       "outOfScope": [
         "生产计划管理",
@@ -202,7 +226,7 @@
       "phases": [
         {
           "phase": "一期",
-          "focus": "基础设备台账+工单管理",
+          "focus": "基础设备台账+工单管理+监控大屏",
           "timeline": "待确认"
         },
         {
@@ -213,6 +237,7 @@
       ],
       "priorityMatrix": [
         { "category": "基础管理", "priority": "P0", "items": ["设备台账", "工单管理"] },
+        { "category": "可视监控", "priority": "P1", "items": ["监控大屏", "OEE展示"] },
         { "category": "维护优化", "priority": "P1", "items": ["预防性维护", "备件管理"] },
         { "category": "智能升级", "priority": "P2", "items": ["预测性维护", "移动应用"] }
       ]
@@ -242,7 +267,7 @@
         "mandatoryTech": [],
         "prohibitedTech": [],
         "networkConstraints": [],
-        "deploymentConstraints": ["需兼容现有IT架构"]
+        "deploymentConstraints": ["需兼容现有IT架构", "需支持大屏硬件部署"]
       },
       "organizational": {
         "approvalProcess": "技术部门提出需求→生产/质量部门会签→采购部门评估→高层审批决策",
@@ -256,27 +281,31 @@
       "businessCriteria": [
         "设备意外停机时间降低20%以上",
         "预防性维护覆盖率提升至80%",
-        "备件库存周转率提升"
+        "备件库存周转率提升",
+        "设备状态实时可视化，故障响应时间缩短30%"
       ],
       "technicalCriteria": [
         "系统可用率≥99.5%",
         "工单响应时间缩短50%",
-        "设备数据准确率≥99%"
+        "设备数据准确率≥99%",
+        "大屏数据刷新延迟≤5秒"
       ],
       "userCriteria": [
         "用户上手时间≤1天",
         "移动端功能使用率≥60%",
-        "用户满意度≥80%"
+        "用户满意度≥80%",
+        "管理层对监控大屏使用率≥90%"
       ],
       "projectCriteria": [
         "按期上线",
         "数据迁移完整准确",
-        "关键用户培训完成"
+        "关键用户培训完成",
+        "大屏部署调试完成"
       ],
       "roiExpectation": {
-        "expectedBenefits": ["减少停机损失", "降低维护成本", "延长设备寿命"],
+        "expectedBenefits": ["减少停机损失", "降低维护成本", "延长设备寿命", "提升管理效率"],
         "paybackPeriod": "待测算",
-        "quantifiableMetrics": ["设备OEE", "MTBF", "MTTR", "备件周转率"]
+        "quantifiableMetrics": ["设备OEE", "MTBF", "MTTR", "备件周转率", "故障响应时间"]
       }
     },
 
@@ -284,45 +313,49 @@
       "risks": [
         { "risk": "与西门子系统集成复杂度超预期", "impact": "中", "mitigation": "提前进行技术验证" },
         { "risk": "用户对新系统接受度低", "impact": "中", "mitigation": "加强培训与试点推广" },
-        { "risk": "历史数据整理工作量巨大", "impact": "低", "mitigation": "分批迁移，先上线后完善" }
+        { "risk": "历史数据整理工作量巨大", "impact": "低", "mitigation": "分批迁移，先上线后完善" },
+        { "risk": "大屏部署位置和网络环境不满足要求", "impact": "低", "mitigation": "提前勘察现场环境" }
       ],
       "assumptions": [
         "客户有明确的数字化转型预算支持",
         "现有设备具备基础的数据采集能力",
-        "客户IT部门能够配合系统集成工作"
+        "客户IT部门能够配合系统集成工作",
+        "有合适的场地部署监控大屏"
       ],
       "dependencies": [
         "明确项目负责人和关键用户",
         "现有设备清单和技术资料完整",
-        "网络基础设施满足系统运行要求"
+        "网络基础设施满足系统运行要求",
+        "大屏部署场地和硬件条件确认"
       ]
     },
 
     "solutionDirection": {
-      "overallApproach": "客户在对比SaaS与定制开发，定制开发是我们的机会，应快速输出针对性方案",
+      "overallApproach": "客户在对比SaaS与定制开发，定制开发是我们的机会，应快速输出针对性方案。监控大屏是客户明确提出的需求，可作为差异化亮点",
       "recommendedApproach": {
         "type": "定制开发（推荐）",
-        "rationale": "客户对定制开发持开放态度，可针对其装备制造业务特点深度定制，与西门子系统深度集成",
+        "rationale": "客户对定制开发持开放态度，可针对其装备制造业务特点深度定制，与西门子系统深度集成，监控大屏可作为定制化亮点突出展示",
         "alternatives": [
           "成熟商业软件+二次开发（备选）",
           "SaaS订阅（客户在评估，非我方优势）"
         ]
       },
       "technicalDirection": {
-        "architecture": "B/S架构，支持移动端",
+        "architecture": "B/S架构，支持移动端，支持大屏展示",
         "deployment": "私有化部署",
-        "techStack": ["待选型"]
+        "techStack": ["待选型，需支持实时数据推送和可视化组件"]
       },
       "implementationStrategy": {
         "approach": "试点先行，快速迭代",
-        "pilotScope": "总装车间关键设备",
+        "pilotScope": "总装车间关键设备+监控大屏",
         "rolloutPlan": "试点→评估→全面推广"
       },
       "nextSteps": [
-        "尽快输出EAM定制开发方案，抢占先机",
+        "尽快输出EAM定制开发方案，突出监控大屏差异化亮点",
         "明确项目决策链和关键干系人",
         "了解客户在评估的SaaS产品情况，制定差异化策略",
-        "收集详细设备清单和技术资料"
+        "收集详细设备清单和技术资料",
+        "勘察大屏部署场地，确认硬件和网络条件"
       ]
     },
 
@@ -333,27 +366,17 @@
       { "id": "Q006", "question": "是否有现成的设备台账数据？", "priority": "中", "category": "数据" },
       { "id": "Q007", "question": "与西门子系统的对接要求？", "priority": "中", "category": "技术" },
       { "id": "Q008", "question": "是否需要移动端？支持哪些平台？", "priority": "低", "category": "功能" },
-      { "id": "Q009", "question": "付款方式和节点？", "priority": "中", "category": "商务" }
-    ],
-
-    "completionRate": {
-      "overall": 50,
-      "byCategory": {
-        "业务背景": 60,
-        "功能需求": 40,
-        "用户角色": 50,
-        "项目范围": 50,
-        "约束条件": 60,
-        "成功标准": 30,
-        "商务条件": 50
-      },
-      "blockers": ["决策人未明确", "竞对SaaS产品情况未知"]
-    }
+      { "id": "Q009", "question": "付款方式和节点？", "priority": "中", "category": "商务" },
+      { "id": "Q010", "question": "监控大屏需要部署在哪些位置（车间、调度室、会议室）？", "priority": "中", "category": "功能" },
+      { "id": "Q011", "question": "大屏数据刷新频率要求（秒级/分钟级）？", "priority": "中", "category": "技术" },
+      { "id": "Q012", "question": "大屏尺寸和分辨率规格？", "priority": "低", "category": "技术" },
+      { "id": "Q013", "question": "是否需要历史数据回放功能？", "priority": "低", "category": "功能" }
+    ]
   },
 
   "metadata": {
     "createdAt": "2026-03-25T00:00:00.000Z",
-    "updatedAt": "2026-03-25T10:30:00.000Z",
+    "updatedAt": "2026-03-26T10:30:00.000Z",
     "createdBy": "AI",
     "version": "1.0"
   }
